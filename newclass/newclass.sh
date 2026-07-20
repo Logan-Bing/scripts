@@ -26,8 +26,8 @@ writeHppPublic()
 	 public:
 	  // Constuctor/Destructor
 	  ${name}(void);
-	  ${name}(${name}& other);
-	  ${name}& operator=(${name}& rhs);
+	  ${name}(const ${name}& other);
+	  ${name}& operator=(const ${name}& rhs);
 	  ~${name}(void);
 	  // attributes
 	EOF
