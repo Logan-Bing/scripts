@@ -2,11 +2,19 @@
 
 # newclass Person -a name age Monster -p name age
 
+# string -> std::string
+# int -> int
+# char -> char
+# char * -> char *
 
 # Pour gérer les arguments il faudrait trouver un moyen de comment le preciser, 
 # pour commencer que les types primitifs avec des prefixes exemple: s_name -> std::string name
 
 # Il faut pouvoir réussir a parcourir la liste d'arguments des que un flag est trouvé et s'arreter quand il n'y a plus d'arguments ou un autre flag
+#
+# newclass Person string name int age
+#
+
 
 writeHppHeader()
 {
@@ -29,18 +37,8 @@ writeHppPublic()
 	  ${name}(const ${name}& other);
 	  ${name}& operator=(const ${name}& rhs);
 	  ~${name}(void);
-	  // attributes
 	EOF
 
-	# if [ "${flags_a}"  -eq 1 ]; then
-	# 	for((i = 2; i < ${length}; i++)); do
-	#
-	# 		cat <<-EOF >> ${hpp_file}
-	# 			  ${spec[i]};
-	# 		EOF
-	#
-	# 	done
-	# fi
 }
 
 writeHppPrivate()
@@ -49,6 +47,13 @@ writeHppPrivate()
 
 	 private:
 	EOF
+
+	for e in "${ATTRIBUTS[@]}";
+	do
+		cat <<-EOF >> ${hpp_file}
+		  ${e};
+		EOF
+	done
 }
 
 writeHppFooter()
@@ -78,38 +83,37 @@ ${name}::~${name}(void)
 EOF
 }
 
-options=("-a" "-p")
+types=(
+	'string-std::string'
+	'int-int'
+)
 
-for arg in "$@"; do
 
-	flags_a=0
-	flags_p=0
+argv=("$@")
 
-	IFS=" " read -r -a spec <<< "${arg}"
+name="$(echo ${argv[0]:0:1} | tr '[:lower:]' '[:upper:]')${argv[0]:1}"
+name_up=$(echo ${argv[0]} | tr '[:lower:]' '[:upper:]');
+hpp_file="${name}.hpp"
+cpp_file="${name}.cpp"
 
-	name="$(echo ${spec[0]:0:1} | tr '[:lower:]' '[:upper:]')${spec[0]:1}"
-	name_up=$(echo ${spec[0]} | tr '[:lower:]' '[:upper:]');
-	hpp_file="${name}.hpp"
-	cpp_file="${name}.cpp"
+ATTRIBUTS=()
 
-	length=${#spec[@]}
-
-	for ((j=0; j < ${length}; j++)); do
-
-		if [ ${spec[j]} == ${options[0]} ]; then
-			flags_a=1
+for ((i=0; i<${#argv[@]}; i++)); do
+	for index in "${types[@]}"; do
+		KEY="${index%%-*}"
+		VALUE="${index##*-}"
+		if [[ "${argv[i]}" == "${KEY}" ]]; then
+			attr="${VALUE} ${argv[i+1]}"
+			ATTRIBUTS+=("${attr}")
+			((i++))   # consomme le nom
+			break
 		fi
-
-		if [ ${spec[j]} == ${options[1]} ]; then
-			flags_p=1
-		fi
-
 	done
-
-	writeHppHeader
-	writeHppPublic
-	writeHppPrivate
-	writeHppFooter
-	writeCppFile
-
 done
+
+writeHppHeader
+writeHppPublic
+writeHppPrivate
+writeHppFooter
+writeCppFile
+
