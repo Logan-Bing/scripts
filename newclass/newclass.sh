@@ -76,6 +76,21 @@ ${name}::${name}(void)
 	std::cout << "${name} Default Constuctor called\n";
 }
 
+${name}::${name}(const ${name}& other)
+{
+	std::cout << "${name} Copy Constructor called\n";
+	*this = other;
+}
+
+${name}&	${name}::operator=(const ${name}& rhs)
+{
+	if (this != &rhs)
+	{
+	
+	}
+	return *this;
+}
+
 ${name}::~${name}(void)
 {
 	std::cout << "${name} Destructor called\n";
