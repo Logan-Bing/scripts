@@ -79,7 +79,6 @@ ${name}::${name}(void)
 ${name}::${name}(const ${name}& other)
 {
 	std::cout << "${name} Copy Constructor called\n";
-	*this = other;
 }
 
 ${name}&	${name}::operator=(const ${name}& rhs)
