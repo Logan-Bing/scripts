@@ -70,15 +70,16 @@ writeCppFile()
 {
 	cat <<EOF > ${cpp_file}
 #include "${name}.hpp"
+#include "Debug.hpp"
 
 ${name}::${name}(void)
 {
-	std::cout << "${name} Default Constuctor called\n";
+	DEBUG("${name} Default Constuctor called\n");
 }
 
 ${name}::${name}(const ${name}& other)
 {
-	std::cout << "${name} Copy Constructor called\n";
+	DEBUG("${name} Copy Constructor called\n");
 }
 
 ${name}&	${name}::operator=(const ${name}& rhs)
@@ -92,7 +93,7 @@ ${name}&	${name}::operator=(const ${name}& rhs)
 
 ${name}::~${name}(void)
 {
-	std::cout << "${name} Destructor called\n";
+	DEBUG("${name} Destructor called\n");
 }
 EOF
 }

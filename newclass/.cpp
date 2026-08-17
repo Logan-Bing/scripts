@@ -1,11 +1,12 @@
 #include ".hpp"
+#include "Debug.hpp"
 
 ::(void)
 {
-	std::cout << " Default Constuctor called\n";
+	DEBUG(" Default Constuctor called\n");
 }
 
 ::~(void)
 {
-	std::cout << " Destructor called\n";
+	DEBUG(" Destructor called\n");
 }
