@@ -74,12 +74,12 @@ writeCppFile()
 
 ${name}::${name}(void)
 {
-	DEBUG("${name} Default Constuctor called\n");
+	DEBUG_MSG("${name} Default Constuctor called\n");
 }
 
 ${name}::${name}(const ${name}& other)
 {
-	DEBUG("${name} Copy Constructor called\n");
+	DEBUG_MSG("${name} Copy Constructor called\n");
 }
 
 ${name}&	${name}::operator=(const ${name}& rhs)
@@ -93,7 +93,7 @@ ${name}&	${name}::operator=(const ${name}& rhs)
 
 ${name}::~${name}(void)
 {
-	DEBUG("${name} Destructor called\n");
+	DEBUG_MSG("${name} Destructor called\n");
 }
 EOF
 }

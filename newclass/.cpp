@@ -3,10 +3,10 @@
 
 ::(void)
 {
-	DEBUG(" Default Constuctor called\n");
+	DEBUG_MSG(" Default Constuctor called\n");
 }
 
 ::~(void)
 {
-	DEBUG(" Destructor called\n");
+	DEBUG_MSG(" Destructor called\n");
 }
