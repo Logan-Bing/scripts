@@ -69,8 +69,8 @@ writeHppFooter()
 writeCppFile()
 {
 	cat <<EOF > ${cpp_file}
-#include "${name}.hpp"
-#include "Debug.hpp"
+#include "${hpp_include}"
+#include "${debug_include}"
 
 ${name}::${name}(void)
 {
@@ -113,9 +113,13 @@ name_up=$(echo ${argv[0]} | tr '[:lower:]' '[:upper:]');
 if [ -d srcs ] && [ -d includes ]; then
 	hpp_file="includes/${name}.hpp"
 	cpp_file="srcs/${name}.cpp"
+	hpp_include="../includes/${name}.hpp"
+	debug_include="../utils/Debug.hpp"
 else
 	hpp_file="${name}.hpp"
 	cpp_file="${name}.cpp"
+	hpp_include="${name}.hpp"
+	debug_include="Debug.hpp"
 fi
 
 ATTRIBUTS=()
