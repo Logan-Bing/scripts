@@ -108,8 +108,15 @@ argv=("$@")
 
 name="$(echo ${argv[0]:0:1} | tr '[:lower:]' '[:upper:]')${argv[0]:1}"
 name_up=$(echo ${argv[0]} | tr '[:lower:]' '[:upper:]');
-hpp_file="${name}.hpp"
-cpp_file="${name}.cpp"
+# Si le projet suit la structure srcs/ includes/ (cf. newproject),
+# on range chaque fichier dans son dossier ; sinon tout reste a plat.
+if [ -d srcs ] && [ -d includes ]; then
+	hpp_file="includes/${name}.hpp"
+	cpp_file="srcs/${name}.cpp"
+else
+	hpp_file="${name}.hpp"
+	cpp_file="${name}.cpp"
+fi
 
 ATTRIBUTS=()
 
@@ -131,4 +138,7 @@ writeHppPublic
 writeHppPrivate
 writeHppFooter
 writeCppFile
+
+echo "  create  ${hpp_file}"
+echo "  create  ${cpp_file}"
 
