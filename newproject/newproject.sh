@@ -68,7 +68,7 @@ re: fclean all
 EOF
 
 create srcs/main.cpp <<'EOF'
-#include "header.hpp"
+#include "../includes/header.hpp"
 
 #include <iostream>
 
